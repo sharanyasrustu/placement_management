@@ -1,0 +1,26 @@
+{
+  "name": "sharanya-placement-management",
+  "version": "1.0.0",
+  "description": "SHARANYA - College Placement Management System Mini-Project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "placement-management",
+    "college",
+    "recruitment",
+    "express",
+    "mysql",
+    "mini-project"
+  ],
+  "author": "SHARANYA Developer",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mysql2": "^3.12.0"
+  }
+}
+

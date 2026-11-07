@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHARANYA – Dashboard | College Placement Management System</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="brand-text">
+                    <h2>SHARANYA</h2>
+                    <span>Placement Portal</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">MAIN MENU</div>
+                <a class="nav-item active" href="index.html">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a class="nav-item" href="students.html">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <span>Students</span>
+                </a>
+                <a class="nav-item" href="companies.html">
+                    <i class="fa-solid fa-building"></i>
+                    <span>Company Drives</span>
+                </a>
+                <a class="nav-item" href="apply.html">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Apply for Drive</span>
+                </a>
+                <a class="nav-item" href="applications.html">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    <span>Applications</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="server-status">
+                    <span class="status-indicator online"></span>
+                    <div class="status-info">
+                        <strong>MySQL Connected</strong>
+                        <small>Database: placement_management</small>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-wrapper">
+            <!-- Top Navbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="mobile-toggle-btn" id="mobileToggleBtn" aria-label="Toggle Sidebar">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="page-header-title">
+                        <h1>Dashboard Overview</h1>
+                        <p>Real-time placement statistics and recruitment metrics</p>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <a href="apply.html" class="btn btn-primary btn-sm">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>New Application</span>
+                    </a>
+                    <div class="user-profile">
+                        <div class="avatar">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div class="user-meta">
+                            <span class="user-name">Placement Officer</span>
+                            <span class="user-role">TPO Admin</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Scrollable Content -->
+            <main class="content-container">
+                <!-- Key Statistics Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card stat-students">
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-user-graduate"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">Total Students</span>
+                            <h3 class="stat-value" id="stat-total-students">0</h3>
+                            <span class="stat-subtext">Registered candidates</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card stat-companies">
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-building"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">Active Companies</span>
+                            <h3 class="stat-value" id="stat-total-companies">0</h3>
+                            <span class="stat-subtext">Recruiting on campus</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card stat-applications">
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-file-lines"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">Total Applications</span>
+                            <h3 class="stat-value" id="stat-total-applications">0</h3>
+                            <span class="stat-subtext">Submissions tracked</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card stat-selected">
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">Selected Students</span>
+                            <h3 class="stat-value" id="stat-total-selected">0</h3>
+                            <span class="stat-subtext text-success">Final job offers secured</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Secondary Metric Bar -->
+                <div class="secondary-stats-bar">
+                    <div class="mini-stat-card">
+                        <span class="dot shortlisted"></span>
+                        <span class="mini-label">Shortlisted Applications:</span>
+                        <strong id="stat-total-shortlisted">0</strong>
+                    </div>
+                    <div class="mini-stat-card">
+                        <span class="dot rejected"></span>
+                        <span class="mini-label">Rejected Applications:</span>
+                        <strong id="stat-total-rejected">0</strong>
+                    </div>
+                </div>
+
+                <!-- Dashboard Overview Columns -->
+                <div class="dashboard-columns">
+                    <!-- Recent Applications Card -->
+                    <div class="card recent-applications-card">
+                        <div class="card-header">
+                            <div class="header-titles">
+                                <h3><i class="fa-solid fa-clock-rotate-left"></i> Recent Applications</h3>
+                                <p>Latest candidate drive registrations</p>
+                            </div>
+                            <a href="applications.html" class="btn btn-outline btn-sm">
+                                View All <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Branch</th>
+                                        <th>Company</th>
+                                        <th>Package</th>
+                                        <th>Round</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recent-applications-body">
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted py-4">Loading recent applications...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Quick Drive Schedule Summary -->
+                    <div class="card upcoming-drives-card">
+                        <div class="card-header">
+                            <div class="header-titles">
+                                <h3><i class="fa-solid fa-calendar-days"></i> Active Recruitment Drives</h3>
+                                <p>Upcoming recruitment events</p>
+                            </div>
+                            <a href="companies.html" class="btn btn-outline btn-sm">
+                                All Drives <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        <div class="drives-list" id="dashboard-drives-list">
+                            <div class="text-center text-muted py-4">Loading active drives...</div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Application Script -->
+    <script src="app.js"></script>
+</body>
+</html>

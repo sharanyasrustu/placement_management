@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHARANYA – Apply for Placement Drive | Placement Management</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="brand-text">
+                    <h2>SHARANYA</h2>
+                    <span>Placement Portal</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">MAIN MENU</div>
+                <a class="nav-item" href="index.html">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a class="nav-item" href="students.html">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <span>Students</span>
+                </a>
+                <a class="nav-item" href="companies.html">
+                    <i class="fa-solid fa-building"></i>
+                    <span>Company Drives</span>
+                </a>
+                <a class="nav-item active" href="apply.html">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Apply for Drive</span>
+                </a>
+                <a class="nav-item" href="applications.html">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    <span>Applications</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="server-status">
+                    <span class="status-indicator online"></span>
+                    <div class="status-info">
+                        <strong>MySQL Connected</strong>
+                        <small>Database: placement_management</small>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-wrapper">
+            <!-- Top Navbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="mobile-toggle-btn" id="mobileToggleBtn" aria-label="Toggle Sidebar">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="page-header-title">
+                        <h1>Apply for Placement Drive</h1>
+                        <p>Evaluate student CGPA eligibility against company threshold and lodge submissions</p>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <a href="applications.html" class="btn btn-outline btn-sm">
+                        <i class="fa-solid fa-clipboard-check"></i>
+                        <span>View All Applications</span>
+                    </a>
+                    <div class="user-profile">
+                        <div class="avatar">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div class="user-meta">
+                            <span class="user-name">Placement Officer</span>
+                            <span class="user-role">TPO Admin</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Scrollable Content -->
+            <main class="content-container">
+                <div class="apply-container-grid">
+                    <!-- Apply Form Card with Dropdown Boxes -->
+                    <div class="card apply-form-card">
+                        <div class="card-header">
+                            <div class="header-titles">
+                                <h3><i class="fa-solid fa-paper-plane text-primary"></i> Placement Drive Application Portal</h3>
+                                <p>Select candidate and corporate recruitment drive from the dropdown boxes below</p>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form id="applyPlacementForm">
+                                <!-- Student Selection Dropdown Box -->
+                                <div class="form-group">
+                                    <label for="applyStudentSelect">
+                                        <i class="fa-solid fa-user-graduate text-primary"></i> Select Candidate (Dropdown Box) <span class="required">*</span>
+                                    </label>
+                                    <select id="applyStudentSelect" class="form-control" required style="font-weight: 600;">
+                                        <option value="">-- Choose Registered Student from Dropdown --</option>
+                                    </select>
+                                    <small class="form-text">Dropdown displays student Name, Roll No, Branch, and Current CGPA</small>
+                                </div>
+
+                                <!-- Company Drive Selection Dropdown Box -->
+                                <div class="form-group">
+                                    <label for="applyCompanySelect">
+                                        <i class="fa-solid fa-building text-primary"></i> Select Company Drive (Dropdown Box) <span class="required">*</span>
+                                    </label>
+                                    <select id="applyCompanySelect" class="form-control" required style="font-weight: 600;">
+                                        <option value="">-- Choose Company Recruitment Drive from Dropdown --</option>
+                                    </select>
+                                    <small class="form-text">Dropdown displays Company Name, Job Role, Package (LPA), and Minimum CGPA</small>
+                                </div>
+
+                                <!-- Real-time Dynamic Eligibility Check Banner -->
+                                <div class="eligibility-status-card" id="eligibilityStatusBox" style="margin-top: 20px;">
+                                    <div class="eligibility-placeholder">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                        <p>Select both a student and a company drive from the dropdown boxes above to evaluate CGPA eligibility automatically.</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions mt-4">
+                                    <button type="submit" class="btn btn-primary btn-block" id="submitApplyBtn" disabled style="padding: 12px;">
+                                        <i class="fa-solid fa-check"></i> Submit Application to MySQL
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Eligibility Guidelines & Drive Criteria Info -->
+                    <div class="card apply-info-card">
+                        <div class="card-header">
+                            <div class="header-titles">
+                                <h3><i class="fa-solid fa-shield-halved text-info"></i> Eligibility & System Rules</h3>
+                                <p>Automated verification logic</p>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul class="info-list">
+                                <li>
+                                    <div class="info-icon"><i class="fa-solid fa-circle-check text-success"></i></div>
+                                    <div>
+                                        <strong>CGPA Criterion Verification</strong>
+                                        <p>The student's current CGPA is evaluated against the company's minimum threshold: <code>Student CGPA &ge; Eligibility CGPA</code>. Ineligible candidates cannot submit.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="info-icon"><i class="fa-solid fa-ban text-danger"></i></div>
+                                    <div>
+                                        <strong>Duplicate Prevention Enforced</strong>
+                                        <p>The system prevents duplicate registrations for the same company drive using a composite constraint <code>UNIQUE (student_id, company_id)</code>.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="info-icon"><i class="fa-solid fa-clock-rotate-left text-primary"></i></div>
+                                    <div>
+                                        <strong>Automatic Timestamp & Defaults</strong>
+                                        <p>Submissions automatically assign the current system date with default recruitment Round: <em>'Applied'</em> and Status: <em>'Pending'</em>.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Application Script -->
+    <script src="app.js"></script>
+</body>
+</html>
+

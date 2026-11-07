@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHARANYA – Company Recruitment Drives | Placement Management</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="brand-text">
+                    <h2>SHARANYA</h2>
+                    <span>Placement Portal</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">MAIN MENU</div>
+                <a class="nav-item" href="index.html">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a class="nav-item" href="students.html">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <span>Students</span>
+                </a>
+                <a class="nav-item active" href="companies.html">
+                    <i class="fa-solid fa-building"></i>
+                    <span>Company Drives</span>
+                </a>
+                <a class="nav-item" href="apply.html">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Apply for Drive</span>
+                </a>
+                <a class="nav-item" href="applications.html">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    <span>Applications</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="server-status">
+                    <span class="status-indicator online"></span>
+                    <div class="status-info">
+                        <strong>MySQL Connected</strong>
+                        <small>Database: placement_management</small>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-wrapper">
+            <!-- Top Navbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="mobile-toggle-btn" id="mobileToggleBtn" aria-label="Toggle Sidebar">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="page-header-title">
+                        <h1>Company Recruitment Drives</h1>
+                        <p>Manage hiring organizations, job profiles, and eligibility criteria</p>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <button class="btn btn-primary btn-sm" id="openAddCompanyModalBtn">
+                        <i class="fa-solid fa-building-circle-plus"></i>
+                        <span>Register Company Drive</span>
+                    </button>
+                    <div class="user-profile">
+                        <div class="avatar">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div class="user-meta">
+                            <span class="user-name">Placement Officer</span>
+                            <span class="user-role">TPO Admin</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Scrollable Content -->
+            <main class="content-container">
+                <!-- Action & Filter Bar with Dropdowns -->
+                <div class="panel-header-actions">
+                    <div class="search-filter-group" style="max-width: 800px;">
+                        <div class="search-input-box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="companySearchInput" placeholder="Search by company name or job role...">
+                        </div>
+
+                        <!-- Sort Companies Dropdown Box -->
+                        <div class="dropdown-filter-wrapper">
+                            <select id="companySortFilter" class="select-control">
+                                <option value="date_asc">Sort: Drive Date (Earliest First)</option>
+                                <option value="pkg_desc">Sort: Highest Package (₹ LPA) &darr;</option>
+                                <option value="pkg_asc">Sort: Lowest Package (₹ LPA) &uarr;</option>
+                                <option value="cgpa_asc">Sort: Min CGPA (Lowest First)</option>
+                                <option value="cgpa_desc">Sort: Min CGPA (Highest First)</option>
+                                <option value="name_asc">Sort: Company Name (A to Z)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn btn-outline" onclick="exportCompaniesToCSV()">
+                            <i class="fa-solid fa-file-excel text-success"></i>
+                            <span>Export CSV</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Companies Table Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="header-titles">
+                            <h3><i class="fa-solid fa-building text-primary"></i> Recruiting Companies (<span id="companiesCountBadge">0</span>)</h3>
+                            <p>Manage active placement drives, package details, and eligibility criteria</p>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Company Name</th>
+                                    <th>Job Role</th>
+                                    <th>Package (LPA)</th>
+                                    <th>Min Eligibility CGPA</th>
+                                    <th>Drive Date</th>
+                                    <th class="text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="companiesTableBody">
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted py-4">Loading company drives from MySQL...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add/Edit Company Modal with Role Dropdown Box -->
+    <div class="modal-overlay" id="companyModal">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3 id="companyModalTitle"><i class="fa-solid fa-building"></i> Register Company Drive</h3>
+                <button class="modal-close-btn" onclick="closeModal('companyModal')">&times;</button>
+            </div>
+            <form id="companyForm">
+                <input type="hidden" id="companyFormId">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="companyName">Company Name <span class="required">*</span></label>
+                        <input type="text" id="companyName" class="form-control" placeholder="e.g. Google, Amazon, TCS, Infosys" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <!-- Job Role Dropdown Box with predefined roles -->
+                        <label for="jobRole">Job Role (Dropdown Box) <span class="required">*</span></label>
+                        <select id="jobRoleSelect" class="form-control" onchange="handleJobRoleSelectChange(this.value)">
+                            <option value="">-- Choose Job Role --</option>
+                            <option value="Software Developer">Software Developer</option>
+                            <option value="Software Development Engineer">Software Development Engineer (SDE)</option>
+                            <option value="System Engineer">System Engineer</option>
+                            <option value="Project Engineer">Project Engineer</option>
+                            <option value="Associate Software Engineer">Associate Software Engineer</option>
+                            <option value="Programmer Analyst">Programmer Analyst</option>
+                            <option value="Data Analyst">Data Analyst</option>
+                            <option value="Cloud Support Associate">Cloud Support Associate</option>
+                            <option value="custom">-- Custom Role (Type Below) --</option>
+                        </select>
+                        <input type="text" id="jobRole" class="form-control mt-2" placeholder="Or enter specific Job Role" required style="margin-top: 8px;">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="companyPackage">Package in LPA (₹) <span class="required">*</span></label>
+                            <input type="number" step="0.01" min="0.1" id="companyPackage" class="form-control" placeholder="e.g. 12.00" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="companyEligibility">Min Eligibility CGPA <span class="required">*</span></label>
+                            <input type="number" step="0.01" min="0" max="10" id="companyEligibility" class="form-control" placeholder="e.g. 7.50" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="driveDate">Recruitment Drive Date <span class="required">*</span></label>
+                        <input type="date" id="driveDate" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('companyModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveCompanyBtn">
+                        <i class="fa-solid fa-floppy-disk"></i> Save Company Drive
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirm Deletion Modal -->
+    <div class="modal-overlay" id="deleteConfirmModal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-header">
+                <h3 class="text-danger"><i class="fa-solid fa-triangle-exclamation"></i> Confirm Delete</h3>
+                <button class="modal-close-btn" onclick="closeModal('deleteConfirmModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="deleteConfirmMessage">Are you sure you want to delete this record? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('deleteConfirmModal')">Cancel</button>
+                <button type="button" class="btn btn-danger" id="executeDeleteBtn">
+                    <i class="fa-solid fa-trash-can"></i> Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Application Script -->
+    <script src="app.js"></script>
+    <script>
+        function handleJobRoleSelectChange(val) {
+            const roleInput = document.getElementById('jobRole');
+            if (val && val !== 'custom') {
+                roleInput.value = val;
+            } else if (val === 'custom') {
+                roleInput.value = '';
+                roleInput.focus();
+            }
+        }
+    </script>
+</body>
+</html>
+

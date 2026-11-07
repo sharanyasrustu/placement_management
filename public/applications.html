@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHARANYA – Placement Applications Tracker | Placement Management</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="brand-text">
+                    <h2>SHARANYA</h2>
+                    <span>Placement Portal</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">MAIN MENU</div>
+                <a class="nav-item" href="index.html">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a class="nav-item" href="students.html">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <span>Students</span>
+                </a>
+                <a class="nav-item" href="companies.html">
+                    <i class="fa-solid fa-building"></i>
+                    <span>Company Drives</span>
+                </a>
+                <a class="nav-item" href="apply.html">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Apply for Drive</span>
+                </a>
+                <a class="nav-item active" href="applications.html">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    <span>Applications</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="server-status">
+                    <span class="status-indicator online"></span>
+                    <div class="status-info">
+                        <strong>MySQL Connected</strong>
+                        <small>Database: placement_management</small>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-wrapper">
+            <!-- Top Navbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="mobile-toggle-btn" id="mobileToggleBtn" aria-label="Toggle Sidebar">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="page-header-title">
+                        <h1>Placement Applications Tracker</h1>
+                        <p>Manage candidate recruitment rounds, statuses, and hiring outcomes</p>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <a href="apply.html" class="btn btn-primary btn-sm">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>New Application</span>
+                    </a>
+                    <div class="user-profile">
+                        <div class="avatar">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div class="user-meta">
+                            <span class="user-name">Placement Officer</span>
+                            <span class="user-role">TPO Admin</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Scrollable Content -->
+            <main class="content-container">
+                <!-- Comprehensive Multi-Filter Bar with Dropdown Boxes -->
+                <div class="card filter-card mb-4">
+                    <div class="filter-card-body" style="grid-template-columns: 1.5fr 1.2fr 1fr 1fr 1fr 80px;">
+                        <div class="filter-item">
+                            <label><i class="fa-solid fa-magnifying-glass"></i> Search</label>
+                            <input type="text" id="appSearchInput" class="form-control" placeholder="Search student or roll no...">
+                        </div>
+
+                        <!-- Company Filter Dropdown Box -->
+                        <div class="filter-item">
+                            <label><i class="fa-solid fa-building"></i> Company (Dropdown)</label>
+                            <select id="appCompanyFilter" class="form-control">
+                                <option value="">-- All Companies --</option>
+                            </select>
+                        </div>
+
+                        <!-- Branch Filter Dropdown Box -->
+                        <div class="filter-item">
+                            <label><i class="fa-solid fa-graduation-cap"></i> Branch (Dropdown)</label>
+                            <select id="appBranchFilter" class="form-control">
+                                <option value="">-- All Branches --</option>
+                                <option value="CSE">CSE</option>
+                                <option value="ECE">ECE</option>
+                                <option value="EEE">EEE</option>
+                                <option value="IT">IT</option>
+                                <option value="MECH">MECH</option>
+                                <option value="CIVIL">CIVIL</option>
+                            </select>
+                        </div>
+
+                        <!-- Round Filter Dropdown Box -->
+                        <div class="filter-item">
+                            <label><i class="fa-solid fa-timeline"></i> Round (Dropdown)</label>
+                            <select id="appRoundFilter" class="form-control">
+                                <option value="">-- All Rounds --</option>
+                                <option value="Applied">Applied</option>
+                                <option value="Online Assessment">Online Assessment</option>
+                                <option value="Technical Interview">Technical Interview</option>
+                                <option value="HR Interview">HR Interview</option>
+                                <option value="Final Result">Final Result</option>
+                            </select>
+                        </div>
+
+                        <!-- Status Filter Dropdown Box -->
+                        <div class="filter-item">
+                            <label><i class="fa-solid fa-signal"></i> Status (Dropdown)</label>
+                            <select id="appStatusFilter" class="form-control">
+                                <option value="">-- All Statuses --</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Applied">Applied</option>
+                                <option value="Shortlisted">Shortlisted</option>
+                                <option value="Selected">Selected</option>
+                                <option value="Rejected">Rejected</option>
+                            </select>
+                        </div>
+
+                        <!-- Reset Button -->
+                        <div class="filter-item btn-filter-reset">
+                            <button class="btn btn-outline btn-block" id="resetAppFiltersBtn" title="Reset all filters">
+                                <i class="fa-solid fa-rotate-left"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Applications Table Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="header-titles">
+                            <h3><i class="fa-solid fa-clipboard-check text-primary"></i> Placement Applications (<span id="applicationsCountBadge">0</span>)</h3>
+                            <p>Live tracking of student recruitment rounds and status across companies</p>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline btn-sm" onclick="exportApplicationsToCSV()">
+                                <i class="fa-solid fa-file-excel text-success"></i>
+                                <span>Export Report (CSV)</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>App ID</th>
+                                    <th>Student Details</th>
+                                    <th>Company & Role</th>
+                                    <th>Package</th>
+                                    <th>Applied Date</th>
+                                    <th>Recruitment Round (Dropdown Box)</th>
+                                    <th>Current Status (Dropdown Box)</th>
+                                    <th class="text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="applicationsTableBody">
+                                <tr>
+                                    <td colspan="8" class="text-center text-muted py-4">Loading applications from MySQL...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Confirm Deletion Modal -->
+    <div class="modal-overlay" id="deleteConfirmModal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-header">
+                <h3 class="text-danger"><i class="fa-solid fa-triangle-exclamation"></i> Confirm Delete</h3>
+                <button class="modal-close-btn" onclick="closeModal('deleteConfirmModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="deleteConfirmMessage">Are you sure you want to delete this application record? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('deleteConfirmModal')">Cancel</button>
+                <button type="button" class="btn btn-danger" id="executeDeleteBtn">
+                    <i class="fa-solid fa-trash-can"></i> Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Application Script -->
+    <script src="app.js"></script>
+</body>
+</html>
+

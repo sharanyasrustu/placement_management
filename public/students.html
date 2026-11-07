@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHARANYA – Student Profiles | College Placement Management System</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="brand-text">
+                    <h2>SHARANYA</h2>
+                    <span>Placement Portal</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">MAIN MENU</div>
+                <a class="nav-item" href="index.html">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a class="nav-item active" href="students.html">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <span>Students</span>
+                </a>
+                <a class="nav-item" href="companies.html">
+                    <i class="fa-solid fa-building"></i>
+                    <span>Company Drives</span>
+                </a>
+                <a class="nav-item" href="apply.html">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Apply for Drive</span>
+                </a>
+                <a class="nav-item" href="applications.html">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    <span>Applications</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="server-status">
+                    <span class="status-indicator online"></span>
+                    <div class="status-info">
+                        <strong>MySQL Connected</strong>
+                        <small>Database: placement_management</small>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-wrapper">
+            <!-- Top Navbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="mobile-toggle-btn" id="mobileToggleBtn" aria-label="Toggle Sidebar">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="page-header-title">
+                        <h1>Student Profiles & Academic Records</h1>
+                        <p>Manage candidate registrations, branches, and CGPA scores</p>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <button class="btn btn-primary btn-sm" id="openAddStudentModalBtn">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>Register Student</span>
+                    </button>
+                    <div class="user-profile">
+                        <div class="avatar">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div class="user-meta">
+                            <span class="user-name">Placement Officer</span>
+                            <span class="user-role">TPO Admin</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Scrollable Content -->
+            <main class="content-container">
+                <!-- Action & Filter Bar with Dropdowns -->
+                <div class="panel-header-actions">
+                    <div class="search-filter-group" style="max-width: 800px;">
+                        <div class="search-input-box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="studentSearchInput" placeholder="Search by name, roll no or email...">
+                        </div>
+                        
+                        <!-- Branch Filter Dropdown Box -->
+                        <div class="dropdown-filter-wrapper">
+                            <select id="studentBranchFilter" class="select-control">
+                                <option value="">-- All Branches (Dropdown) --</option>
+                                <option value="CSE">CSE - Computer Science</option>
+                                <option value="ECE">ECE - Electronics & Comm</option>
+                                <option value="EEE">EEE - Electrical & Electronics</option>
+                                <option value="IT">IT - Information Technology</option>
+                                <option value="MECH">MECH - Mechanical Engg</option>
+                                <option value="CIVIL">CIVIL - Civil Engineering</option>
+                            </select>
+                        </div>
+
+                        <!-- Sort Order Dropdown Box -->
+                        <div class="dropdown-filter-wrapper">
+                            <select id="studentSortFilter" class="select-control">
+                                <option value="id_desc">Sort: Default (Newest First)</option>
+                                <option value="cgpa_desc">Sort: Highest CGPA &darr;</option>
+                                <option value="cgpa_asc">Sort: Lowest CGPA &uarr;</option>
+                                <option value="name_asc">Sort: Name (A to Z)</option>
+                                <option value="roll_asc">Sort: Roll Number</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn btn-outline" onclick="exportStudentsToCSV()">
+                            <i class="fa-solid fa-file-excel text-success"></i>
+                            <span>Export CSV</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Students Table Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="header-titles">
+                            <h3><i class="fa-solid fa-user-graduate text-primary"></i> Registered Students (<span id="studentsCountBadge">0</span>)</h3>
+                            <p>Manage student academic records and recruitment eligibility</p>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Roll Number</th>
+                                    <th>Student Name</th>
+                                    <th>Branch</th>
+                                    <th>CGPA</th>
+                                    <th>Email Address</th>
+                                    <th class="text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentsTableBody">
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted py-4">Loading students from MySQL...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add/Edit Student Modal with Dropdown Boxes -->
+    <div class="modal-overlay" id="studentModal">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3 id="studentModalTitle"><i class="fa-solid fa-user-graduate"></i> Register New Student</h3>
+                <button class="modal-close-btn" onclick="closeModal('studentModal')">&times;</button>
+            </div>
+            <form id="studentForm">
+                <input type="hidden" id="studentFormId">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="studentName">Full Name <span class="required">*</span></label>
+                        <input type="text" id="studentName" class="form-control" placeholder="e.g. Rahul Sharma" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="studentRoll">Roll Number <span class="required">*</span></label>
+                            <input type="text" id="studentRoll" class="form-control" placeholder="e.g. 22CS001" required>
+                        </div>
+                        <div class="form-group">
+                            <!-- Branch Selection Dropdown Box -->
+                            <label for="studentBranch">Branch (Dropdown Box) <span class="required">*</span></label>
+                            <select id="studentBranch" class="form-control" required>
+                                <option value="">-- Choose Branch --</option>
+                                <option value="CSE">CSE - Computer Science & Engineering</option>
+                                <option value="ECE">ECE - Electronics & Communication</option>
+                                <option value="EEE">EEE - Electrical & Electronics Engineering</option>
+                                <option value="IT">IT - Information Technology</option>
+                                <option value="MECH">MECH - Mechanical Engineering</option>
+                                <option value="CIVIL">CIVIL - Civil Engineering</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="studentCgpa">CGPA (0.00 - 10.00) <span class="required">*</span></label>
+                            <input type="number" step="0.01" min="0" max="10" id="studentCgpa" class="form-control" placeholder="e.g. 8.50" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentEmail">Email Address <span class="required">*</span></label>
+                            <input type="email" id="studentEmail" class="form-control" placeholder="e.g. rahul@example.com" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('studentModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveStudentBtn">
+                        <i class="fa-solid fa-floppy-disk"></i> Save Student
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirm Deletion Modal -->
+    <div class="modal-overlay" id="deleteConfirmModal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-header">
+                <h3 class="text-danger"><i class="fa-solid fa-triangle-exclamation"></i> Confirm Delete</h3>
+                <button class="modal-close-btn" onclick="closeModal('deleteConfirmModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="deleteConfirmMessage">Are you sure you want to delete this record? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('deleteConfirmModal')">Cancel</button>
+                <button type="button" class="btn btn-danger" id="executeDeleteBtn">
+                    <i class="fa-solid fa-trash-can"></i> Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Application Script -->
+    <script src="app.js"></script>
+</body>
+</html>
+
